@@ -29,6 +29,23 @@ Route::controller(LivewireTestController::class)
 
 Route::get('alpine-test/index', [AlpineTestController::class, 'index']);
 
+// manager以上しか使えないようにGate設定
+Route::prefix('manager')
+->middleware('can:manager-higher')
+->group(function(){
+    Route::get('index', function(){
+        dd('manager');
+    });
+});
+
+// user以上しか使えないようにGate設定
+Route::middleware('can:user-higher')
+->group(function(){
+    Route::get('index', function(){
+        dd('user');
+    });
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
