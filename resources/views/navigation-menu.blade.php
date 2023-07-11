@@ -19,6 +19,9 @@
                     <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                         イベント管理
                     </x-nav-link>
+                    <x-nav-link href="{{ route('events.past') }}" :active="request()->routeIs('events.past')">
+                        過去イベント管理
+                    </x-nav-link>
                     <x-nav-link href="{{ route('events.create') }}" :active="request()->routeIs('events.create')">
                         イベント新規登録
                     </x-nav-link>
@@ -151,6 +154,9 @@
             @can('manager-higher')
             <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                 イベント管理
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('events.past') }}" :active="request()->routeIs('events.past')">
+                過去イベント管理
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('events.create') }}" :active="request()->routeIs('events.create')">
                 イベント新規登録

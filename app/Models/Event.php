@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
+use App\Models\User;
 
 class Event extends Model
 {
@@ -21,10 +22,22 @@ class Event extends Model
         'is_visible'
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reservations')
+        ->withPivot('id', 'number_of_people', 'canceled_date');
+    }
+
     protected function eventDate(): Attribute
     {
         return new Attribute(
             get: fn() => Carbon::parse($this->start_date)->format('Y年m月d日')
+        );
+    }
+    protected function editDate(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Carbon::parse($this->start_date)->format('Y-m-d')
         );
     }
     protected function startTime(): Attribute
